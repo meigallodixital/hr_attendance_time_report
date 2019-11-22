@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report 
+        id="action_hr_attendance_time_report"
+        string="Attendance In/Out working hours"
+        model="hr.attendance"
+        report_type="qweb-pdf"
+        name="hr_attendance_time_report.hr_attendance_time_report"/>
+
+    <!-- Print from list -->
+    <template id="hr_attendance_time_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="employee">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <xpath expr="." position="inside">
+                            <link href="/hr_attendance_time_report/static/src/css/style.css" rel="stylesheet" />
+                        </xpath>
+                        <t t-foreach="employee['attendances']" t-as="month">
+                            <div class="row">
+                                <div class="col-4">
+                                    <strong>Employee:</strong>
+                                    <span t-esc="employee['name']"/>
+                                </div>
+                                <div class="col-3">
+                                    <strong>First date:</strong>
+                                    <span t-esc="date_start"/>
+                                </div>
+                                <div class="col-3">
+                                    <strong>Last date:</strong>
+                                    <span t-esc="date_end"/>
+                                </div>
+                                <div class="col-2">
+                                    <strong>Month :</strong>
+                                    <span t-esc="datetime.date(2000, month, 1).strftime('%B')"/>
+                                </div>
+                            </div>
+                            <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">
+                                    Day
+                                    </th>
+                                    <th class="text-left">
+                                    Check 1
+                                    </th>
+                                    <th class="text-left">
+                                    Check 2
+                                    </th>
+                                    <th class="text-left">
+                                    Type
+                                    </th>
+                                    <th class="text-right">
+                                    Estimated
+                                    </th>
+                                    <th class="text-right">
+                                    Diff
+                                    </th>
+                                    <th class="text-right">
+                                    Justify
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="employee['attendances'][month]" t-as="attendance">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="attendance['date_in']"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="attendance['check1']"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-if="attendance['check2']" t-esc="attendance['check2']"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="attendance['type']" />
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-if="attendance['theoretical']" t-esc="attendance['theoretical']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="attendance['delta']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="attendance['justify']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <tbottom>
+                                <tr>
+                                    <th class="text-left">
+                                    
+                                    </th>
+                                    <th class="text-left">
+                                    </th>
+                                    <th class="text-left">
+                                    
+                                    </th>
+                                    <th class="text-left">
+                                    Total
+                                    </th>
+                                    <th class="text-right">
+                                        <span t-esc="employee['totals'][month]['theoretical']"/>
+                                    </th>
+                                    <th class="text-right">
+                                        <span t-esc="employee['totals'][month]['delta']"/>
+                                    </th>
+                                    <th class="text-right">
+                                        <span t-esc="employee['totals'][month]['justify']"/>
+                                    </th>
+                                </tr>
+                            </tbottom>
+                            </table>
+                            <p style="page-break-after:always;"> </p>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

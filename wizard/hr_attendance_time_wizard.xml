@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="hr_attendance_time_wizard" model="ir.ui.view">
+        <field name="name">HR Attendance Employee Wizard</field>
+        <field name="model">hr.attendance.time.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                        <field name="employee_ids" widget="many2many_tags"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="category_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_open': True, 'no_create': True}"/>
+                        <field name="rounded"/>
+                        <field name="not_worked"/>
+                </group>
+                <footer>
+                    <button type="object" name="get_report" string="Print Report" default_focus="1" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="hr_attendance_time_report_action" 
+            name="Employee Working Time Wizard"
+            res_model="hr.attendance.time.wizard"
+            view_type="form"
+            view_mode="form"
+            view_id="hr_attendance_time_wizard"
+            target="new"/>
+    
+    <menuitem 
+        id="hr_attendance_time_report_menu"
+        name="Employee Working Time Wizard"
+        action="hr_attendance_time_report_action"
+        groups="hr_attendance.group_hr_attendance"
+        parent="hr_attendance.menu_hr_attendance_report"/>
+</odoo>
