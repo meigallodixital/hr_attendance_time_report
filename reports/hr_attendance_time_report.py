@@ -143,8 +143,7 @@ class HrAttendanceTimeReport(models.AbstractModel):
         today = date.today()
 
         if date_end > today:
-            # Today checkout can not exist yet
-            date_end = today-datetime.timedelta(days=1)
+            date_end = today
 
         # Report data
         items = collections.OrderedDict()
