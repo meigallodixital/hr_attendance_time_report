@@ -145,11 +145,9 @@ class HrAttendanceTimeReport(models.AbstractModel):
         if date_end > today:
             date_end = today
 
-        # Report data
-        items = collections.OrderedDict()
-
         for employee in employees:
             # Reset employee data
+            items = collections.OrderedDict()
             actual_timezone = pytz.timezone(
                 employee.resource_id.calendar_id.tz)
             attendance_items = {}
@@ -203,6 +201,7 @@ class HrAttendanceTimeReport(models.AbstractModel):
             if date_start < employee.theoretical_hours_start_date:
                 first_day = employee.theoretical_hours_start_date
 
+            #Initialize employee vars
             month = first_day.month
             items[month] = []
             totals[month] = {}

@@ -74,7 +74,7 @@
                                             <span t-if="attendance['check2']" t-esc="attendance['check2']"/>
                                         </td>
                                         <td class="text-left">
-                                            <span t-esc="attendance['type']" />
+                                            <span t-esc="attendance['type']"/>
                                         </td>
                                         <td class="text-right">
                                             <span t-if="attendance['theoretical']" t-esc="attendance['theoretical']"/>
