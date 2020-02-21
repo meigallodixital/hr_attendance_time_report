@@ -10,6 +10,7 @@ from odoo.exceptions import ValidationError
 
 class HrAttendanceTimeReport(models.AbstractModel):
     _name = 'report.hr_attendance_time_report.hr_attendance_time_report'
+    _description = 'HR Attendance Time Report'
 
     with_seconds = False
 
